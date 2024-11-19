@@ -10,8 +10,7 @@ import random
 alphabet = "abcdefghijklmnopqrstuvwxyz"
 
 # user inputs a message and selects a key (or random), the message is then translated using the cipher
-def encode_message():
-        dinput = input("What would you like to be ciphered? ").lower()
+def encode_message(dinput):
         rotation_input = input("Enter a rotation cipher key (Press Enter for a random value): ")
 
         if rotation_input.strip() == "":
@@ -29,7 +28,7 @@ def encode_message():
             else:
                 encoded_message += char  # Non-alphabetic characters remain unchanged
 
-        return(f"Encoded message: {encoded_message}")
+        return(f"Used key of {rotation} to create:\n {encoded_message}")
 
 pass
 
@@ -60,9 +59,17 @@ def main():
         selection = input("Choose an option:")
 
         if selection == "1":
-            print(encode_message())
+            oinput = input("What would you like to be ciphered?").lower()
+            print(encode_message(oinput))
         elif selection == "2":
-            encode_file()
+            readW = input("What file would you like to be encoded")
+            try:
+                x = open(readW, "r")
+                f= (x.read())
+                print(encode_message(f))
+                encode_file()
+            except FileNotFoundError:
+                print(f"Error: The file '{readW}' was not found.")
         elif selection == "3":
             decode_file()
         elif selection == "4":
